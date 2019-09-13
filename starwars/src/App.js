@@ -10,36 +10,34 @@ const swapiAPI = 'https://swapi.co/api/people';
 
 
 const App = () => {
-  // Try to think through what state you'll need for this app before starting. Then build out
-  // the state properties here.
-
-  // Fetch characters from the star wars api in an effect hook. Remember, anytime you have a 
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
-  //
-  //
   const [state, setState] = useState({results: [], isLoaded: false});
   const [message, setAlert] = useState('Loading...');
 
   useEffect(()=> {
+    // set the isLoaded property to false before the request begins
     Object.assign({}, state, {isLoaded: false});
     axios.get(swapiAPI)
       .then(response => response.data)
       .then(data => {
+        // set isLoaded property to true when request is successful
         let state = Object.assign({}, {results: data.results}, {isLoaded: true})
         setState(state);
       })
       .catch(error => {
+        // set a new alert message
         setAlert('Opps! Try again!');
-        debugger;
+        // wait for 2 sec and set isLoaded to true. This ensures that the alert element
+        // no longer displays after 2 seconds.
         setTimeout(() => {
           setState(Object.assign({}, {results: state.results}, {isLoaded: true}));
         }, 2000)
       })
-  }, [state])
+  }, [state, message])
 
-  const {isLoaded} = state;
+  const { isLoaded } = state;
 
+  // Returns a page with an alert message telling user whether the page
+  // is still loading or there has been an error.
   if (!isLoaded) {
     return <Alert message={message} isLoaded={isLoaded}/>
   }
