@@ -60,7 +60,6 @@ const StyledTable = styled.table`
 const Main = (props) => {
   const data = props.data;
 
-  console.log(data);
   return (
     <StyledTable>
       <Header/>

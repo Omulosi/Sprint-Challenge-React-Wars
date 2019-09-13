@@ -10,6 +10,7 @@ const StyledAlert = styled.div`
   z-index: 3;
   width: 100%;
   height: 100%;
+  display: ${props => props.isLoaded === true? 'block': 'none'};
 
 
   p {
