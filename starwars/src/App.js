@@ -6,7 +6,7 @@ import './App.css';
 import axios from 'axios';
 
 const swapiAPI = 'https://swapi.co/api/people';
-//const swapiAPI = 'https://';
+//const swapiAPI = 'http://httpbin.org/status/404';
 
 
 const App = () => {
@@ -31,17 +31,21 @@ const App = () => {
       })
       .catch(error => {
         setAlert('Opps! Try again!');
+        debugger;
         setTimeout(() => {
           setState(Object.assign({}, {results: state.results}, {isLoaded: true}));
-        }, 3000)
+        }, 2000)
       })
   }, [state])
 
-  const isLoaded = state;
+  const {isLoaded} = state;
+
+  if (!isLoaded) {
+    return <Alert message={message} isLoaded={isLoaded}/>
+  }
 
   return (
     <div className="App container">
-      <Alert message={message} isLoaded={isLoaded}/>
       <h1 className="Header">React Wars</h1>
       <p className='tagline'> Your favorite Star Wars characters!</p>
       <div className='main-content'>
