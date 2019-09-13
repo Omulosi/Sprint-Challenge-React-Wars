@@ -6,8 +6,20 @@
   text-shadow: 1px 1px 5px #fff;
 }
 
-.conatiner {
+.tagline {
+  font-size: 1.3em;
+  font-style: italic;
+  color: #fff;
+}
+
+.container {
   margin: 0 auto;
   padding: 1em 2em;
 }
-/* write your parent styles in here for your App.js */
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justtify-content: center;
+}
