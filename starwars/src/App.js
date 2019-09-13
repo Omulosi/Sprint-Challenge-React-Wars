@@ -10,7 +10,7 @@ const App = () => {
   // sync up with, if any.
 
   return (
-    <div className="App">
+    <div className="App container">
       <h1 className="Header">React Wars</h1>
     </div>
   );
