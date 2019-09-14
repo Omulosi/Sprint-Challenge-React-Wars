@@ -1,0 +1,29 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const StyledPaginator = styled.div`
+   
+  a,span {
+    padding: 7px 18px;
+    border: 1px solid #eee;
+    margin-left: -2px;
+    margin-right: -2px;
+    background-color: #ffffff;
+    display: inline-block;
+    cursor: pointer;
+}
+`
+
+const Paginator = (props) => {
+
+  const { next, previous } = props;
+
+  return (
+    <StyledPaginator>
+      <a href={previous}>&laquo; Prev</a>
+      <a href={next}>Next &raquo;</a>
+    </StyledPaginator>
+  )
+}
+
+export default Paginator;

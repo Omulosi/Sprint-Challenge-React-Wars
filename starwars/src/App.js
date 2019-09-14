@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Main from './components/Main';
-import Alert from'./components/Alert';
+import Alert from './components/Alert';
+import Pagination from './components/Pagination';
 
 import './App.css';
 import axios from 'axios';
@@ -10,17 +11,22 @@ const swapiAPI = 'https://swapi.co/api/people';
 
 
 const App = () => {
-  const [state, setState] = useState({results: [], isLoaded: false});
+  const [state, setState] = useState({results: [], isLoaded: false, prev: null, next: null});
   const [message, setAlert] = useState('Loading...');
+  const [currentLink, setCurrentLink] = useState(swapiAPI);
 
   useEffect(()=> {
     // set the isLoaded property to false before the request begins
-    Object.assign({}, state, {isLoaded: false});
-    axios.get(swapiAPI)
+    setState(Object.assign({}, state, {isLoaded: false}));
+    axios.get(currentLink)
       .then(response => response.data)
       .then(data => {
         // set isLoaded property to true when request is successful
-        let state = Object.assign({}, {results: data.results}, {isLoaded: true})
+        let state = Object.assign({},
+          {results: data.results},
+          {prev: data.previous},
+          {next: data.next},
+          {isLoaded: true})
         setState(state);
       })
       .catch(error => {
@@ -29,10 +35,24 @@ const App = () => {
         // wait for 2 sec and set isLoaded to true. This ensures that the alert element
         // no longer displays after 2 seconds.
         setTimeout(() => {
-          setState(Object.assign({}, {results: state.results}, {isLoaded: true}));
+          setState(Object.assign({}, 
+            state,
+            {isLoaded: true}));
         }, 2000)
       })
-  }, [state, message])
+  }, [message, currentLink])
+
+  const handleNext = (e) => {
+    if (state.next) {
+      setCurrentLink(state.next);
+    }
+  }
+
+  const handlePrev = (e) => {
+    if (state.prev) {
+      setCurrentLink(state.prev);
+    }
+  }
 
   const { isLoaded } = state;
 
@@ -48,6 +68,9 @@ const App = () => {
       <p className='tagline'> Your favorite Star Wars characters!</p>
       <div className='main-content'>
         <Main data={state.results}/>
+      </div>
+      <div className='footer'>
+        <Pagination handleNext={handleNext} handlePrev={handlePrev}/>
       </div>
     </div>
   );

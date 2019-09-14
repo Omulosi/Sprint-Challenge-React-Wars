@@ -23,3 +23,10 @@
   align-items: center;
   justtify-content: center;
 }
+
+.footer {
+  position: absolute;
+  text-align: center;
+  right: 45%;
+  bottom: 0;
+}
