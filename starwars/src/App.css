@@ -5,4 +5,28 @@
   color: #443e3e;
   text-shadow: 1px 1px 5px #fff;
 }
-/* write your parent styles in here for your App.js */
+
+.tagline {
+  font-size: 1.3em;
+  font-style: italic;
+  color: #fff;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 1em 2em;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justtify-content: center;
+}
+
+.footer {
+  position: absolute;
+  text-align: center;
+  right: 45%;
+  bottom: 0;
+}
